@@ -1,0 +1,5 @@
+[Match]
+Name=ens192
+[Network]
+Bridge=br0
+

@@ -1,0 +1,6 @@
+[Match]
+Name=treasurehuntauctions
+
+[Network]
+DHCP=ipv4
+

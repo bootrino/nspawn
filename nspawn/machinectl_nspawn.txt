@@ -1,0 +1,37 @@
+Links:
+https://0todolist.com/articles/create-a-Debian-systemd-container-in-Ubuntu-using-nspawn.md
+
+
+sudo machinectl pull-tar https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64-root.tar.xz
+sudo systemd-nspawn -M jammy-server-cloudimg-amd64-root  --bind /home/ubuntu busybox httpd -h /home/ubuntu -f -p 9090
+
+LISTEN UP!
+# you need to run sudo systemd-nspawn from /var/lib/machines
+systemd-nspawn -b -D /var/lib/machines/<machinename>
+
+The -b option will boot the container (i.e. run systemd as PID=1),
+instead of just running a shell, and -D specifies the directory
+that becomes the container's root directory.
+
+sudo machinectl poweroff <machinename>
+sudo machinectl list --all
+sudo machinectl start <machinename>
+sudo machinectl shell <machinename>
+
+# CAUTION THIS DELETES ALL MACHINES!!!!
+sudo machinectl clean --all
+
+After creating:
+etc/systemd/network/
+etc/systemd/network/70-static.network
+etc/systemd/network/bind.network
+etc/systemd/network/br0.netdev
+etc/systemd/network/br0.network
+etc/systemd/network/treasurehuntauctions.network
+etc/systemd/nspawn/treasurehuntauctions.nspawn
+
+THEN:
+root@videopaintboxbackendionos:/var/lib/machines# systemctl enable --now systemd-networkd
+root@videopaintboxbackendionos:/var/lib/machines# systemctl restart systemd-networkd
+
+
